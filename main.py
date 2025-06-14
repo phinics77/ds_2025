@@ -21,18 +21,33 @@ st.dataframe(df[['시도본부', '119안전센터명', '주소', '전화번호',
 m = folium.Map(location=[36.5, 127.5], zoom_start=7)
 marker_cluster = MarkerCluster().add_to(m)
 
-for _, row in df.dropna(subset=['lat', 'lon']).iterrows():
-    popup_text = f"""
-    <b>{row['119안전센터명']}</b><br>
-    {row['주소']}<br>
-    전화: {row['전화번호']}
-    """
-    folium.Marker(
-        location=[row["lat"], row["lon"]],
-        popup=popup_text,
-        icon=folium.Icon(color="red", icon="fire")
-    ).add_to(marker_cluster)
+tab1, tab2 , tab3 , tab4 = st.tabs(['소방서 위치' , '산불피해지역', '피해면적', ''])
 
-# 지도 출력
-st.subheader("🗺️ 지도에서 119안전센터 확인")
-st_folium(m, width=800, height=600)
+# 소방서 위치 탭
+
+with tab1:
+    st.subheader("소방서 위치")
+    st.write("전국의 소방서 위치를 지도에서 확인할 수 있습니다.")
+    for _, row in df.dropna(subset=['lat', 'lon']).iterrows():
+        folium.Marker(
+            location=[row["lat"], row["lon"]],
+            icon=folium.Icon(color="red", icon="fire station", prefix='fa'),
+        ).add_to(marker_cluster)
+
+    # 지도 출력
+    st.subheader("🗺️ 지도에서 119안전센터 확인")
+    st_folium(m, width=800, height=600)
+
+with tab2:
+    st.subheader("산불피해지역")
+    st.write("산불피해지역을 지도에서 확인할 수 있습니다.")
+    # 산불피해지역 데이터 로드
+    wildfire_data = pd.read_csv("산불피해지역.csv", encoding='cp949')
+    for _, row in wildfire_data.iterrows():
+        folium.Marker(
+            location=[row["lat"], row["lon"]],
+            icon=folium.Icon(color="orange", icon="fire", prefix='fa'),
+        ).add_to(marker_cluster)
+
+    # 지도 출력
+    st_folium(m, width=800, height=600)
