@@ -1,0 +1,19 @@
+import streamlit as st
+from PIL import Image
+
+# 이미지 열기
+img1 = Image.open("소방출동.png")
+img2 = Image.open("소방출동1.png")
+
+# 나란히 표시
+col1, col2 = st.columns(2)
+with col1:
+    st.image(img1, caption="소방출동", use_column_width=True)
+with col2:
+    st.image(img2, caption="소방출동1", use_column_width=True)
+
+st.markdown("""
+그래프에 나타난 데이터를 보면 이러한 중요성을 명확히 알 수 있습니다. 소방대원이 현장에 빨리 도착할수록, 불이 넓게 번지기 전에 진압되어 피해 면적이 크게 줄어드는 모습이 계속해서 나타납니다. 반대로, 처음 대응이 늦어질 경우 불은 예상보다 아주 빠르게 번져 넓은 지역에 피해를 일으킴을 데이터는 분명히 보여줍니다. 이는 불이 초기에 잡히지 않으면 마치 눈덩이처럼 아주 빠르게 커지는 특성 때문입니다.
+
+**결론적으로, 이 분석 결과는 불이 났을 때 얼마나 빨리 처음 진압을 시작하느냐가 단순히 불을 잘 끄는 것을 넘어, 사람과 재산, 환경에 미치는 전체 피해 크기를 결정하는 가장 중요한 요소임을 강력히 보여줍니다. 빨리 대응하는 것이 큰 재난을 막는 가장 좋은 방법입니다.**
+""")
