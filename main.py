@@ -6,29 +6,7 @@ from folium import Choropleth, Marker
 from folium.plugins import MarkerCluster
 from streamlit_folium import st_folium
 
-manual_map = {
-    '창원 마산합포': '창원시 마산합포구',
-    '창원 마산회원': '창원시 마산회원구',
-    '창원 의창': '창원시 의창구',
-    '포항 남': '포항시 남구',
-    '제주': '제주시',
-    '서': '서구',
-    '동': '동구',
-    '중': '중구',
-    '수원 장안': '수원시 장안구',
-    '청주 상당': '청주시 상당구',
-    '고양 덕양': '고양시 덕양구',
-    '천안 동남': '천안시 동남구',
-    '전주 완산': '전주시 완산구',
-    '남동': '남동구',
-    '연수': '연수구',
-    '달서': '달서구',
-    '사하': '사하구',
-    '강서': '강서구',
-    '남해': '남해군',
-    '영도': '영도구',
-    '유성': '유성구',
-}
+manual_map = {}
 
 def normalize_sigungu(name):
     if pd.isna(name):
@@ -44,7 +22,7 @@ def normalize_sigungu(name):
     return name + '군'
 
 st.set_page_config(page_title="산불 시각화", layout="wide")
-st.title("🔥 산불 및 119안전센터 시각화")
+st.title("산불 대처를 위한 방안")
 
 df_fire = pd.read_csv("산불데이터_시군구완성.csv", encoding="cp949")
 df_geo = pd.read_csv("sigungu_codes_only.csv")
@@ -64,20 +42,31 @@ df_merged = pd.merge(
 df_clean = df_merged.dropna(subset=['SIG_CD'])
 df_result = df_clean.groupby('SIG_CD', as_index=False)['발생건수'].sum()
 
-tab1, tab2, tab3 = st.tabs(["119안전센터 위치", "산불 패히지역 지도", "온습도 지도"])
+tab1, tab2, tab4 , tab5= st.tabs(["119안전센터 위치", "산불 패히지역 지도", "소방자원 분포표", "소방서 출동시간과 피해의 상관관계"])
 
 with tab1:
     st.subheader("전국 119안전센터 위치")
-    m1 = folium.Map(location=[36.5, 127.5], zoom_start=7)
-    marker_cluster1 = MarkerCluster().add_to(m1)
+    col1, col2 = st.columns([2, 1])
 
-    for _, row in df_119.dropna(subset=['위도', '경도']).iterrows():
-        folium.Marker(
-            location=[row['위도'], row['경도']],
-            icon=folium.Icon(color='red', icon='fire', prefix='fa')
-        ).add_to(marker_cluster1)
+    with col1:
+        m1 = folium.Map(location=[36.5, 127.5], zoom_start=7)
+        marker_cluster1 = MarkerCluster().add_to(m1)
 
-    st_folium(m1, width=900, height=600)
+        for _, row in df_119.dropna(subset=['위도', '경도']).iterrows():
+            folium.Marker(
+                location=[row['위도'], row['경도']],
+                icon=folium.Icon(color='red', icon='fire', prefix='fa')
+            ).add_to(marker_cluster1)
+
+        st_folium(m1, width=800, height=600)
+        st.image("지자체별 헬기보유.png", width=650, caption="지자체별 헬기 보유 현황")
+
+    with col2:
+        st.image("산불 골든타임.png", width=650)
+        st.image("산불 골든타임2.png", width=650)
+
+        
+
 
 with tab2:
     st.subheader("산불 발생 시군구별 Choropleth 지도")
@@ -90,12 +79,15 @@ with tab2:
         key_on='feature.properties.SIG_CD',
         legend_name='산불 발생건수',
         fill_color='YlOrRd',
-
-        
     ).add_to(m2)
 
     st_folium(m2, width=900, height=600)
 
-with tab3:
-    st.subheader("습도 및 온도")
-    st.dataframe(df_result)
+
+
+with tab4:
+    st.subheader("효율적인 소방자원 분포표")
+
+# with tab5:
+#     st.subheader("소방서의 출동시간과 피해의 상관관계")
+#   st.image()
