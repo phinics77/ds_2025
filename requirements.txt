@@ -4,4 +4,9 @@ streamlit_folium
 folium
 pandas
 geopy
+<<<<<<< HEAD
 geopandas
+=======
+json
+geopandas
+>>>>>>> 899bb63233d44263328d2f052d50c3bec7a0978a
