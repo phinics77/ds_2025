@@ -89,8 +89,8 @@ with tab4:
     st.subheader("효율적인 소방자원 분포표")
 
 with tab5:
-st.subheader("소방서의 출동시간과 피해의 상관관계")
-col1, col2 = st.columns(2)
+    st.subheader("소방서의 출동시간과 피해의 상관관계")
+    ol1, col2 = st.columns(2)
     with col1:
         st.image("산불.png", caption="소방출동", width=320)
     with col2:
