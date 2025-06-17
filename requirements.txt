@@ -2,7 +2,6 @@ plotly
 streamlit
 streamlit_folium
 folium
-pandass
+pandas
 geopy
-json
 geopandas
