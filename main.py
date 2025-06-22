@@ -91,53 +91,6 @@ with tab4:
     st.subheader("효율적인 소방자원 분포표")
 
 with tab5:
-    st.markdown(
-    """
-    <style>
-    [data-testid="column"] {
-        gap: 0rem !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-with tab5:
-   st.markdown(
-    """
-    <style>
-    [data-testid="column"] {
-        gap: 0rem !important;
-        padding: 0px !important;
-    }
-    .stImage {
-        margin: 0px !important;
-        padding: 0px !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-import streamlit as st
-
-st.markdown(
-    """
-    <style>
-    [data-testid="column"] {
-        gap: 0rem !important;
-        padding: 0px !important;
-    }
-    .stImage {
-        margin: 0px !important;
-        padding: 0px !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-with tab5:
     st.markdown("<h2 style='text-align: center;'>소방서의 출동시간과 피해의 상관관계</h2>", unsafe_allow_html=True)
 
     desired_image_width = 600
