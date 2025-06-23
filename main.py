@@ -80,7 +80,7 @@ st.markdown(
 with tab2:
     st.markdown("<h2 style='text-align: center;'>소방서의 출동시간과 피해의 상관관계</h2>", unsafe_allow_html=True)
 
-    desired_image_width = 320
+    desired_image_width = 600
 
     col1, col2 = st.columns(2, gap="small")
 
