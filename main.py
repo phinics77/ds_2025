@@ -59,6 +59,24 @@ with tab1:
     - **성묘객실화 (2%)** 및 **건축물화재 (5%)** 등도 발생  
     """)
 
+import streamlit as st
+
+st.markdown(
+    """
+    <style>
+    [data-testid="column"] {
+        gap: 0rem !important;
+        padding: 0px !important;
+    }
+    .stImage {
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 with tab2:
     st.markdown("<h2 style='text-align: center;'>소방서의 출동시간과 피해의 상관관계</h2>", unsafe_allow_html=True)
 
@@ -70,18 +88,11 @@ with tab2:
         st.image("산불.png", caption="소방출동", width=desired_image_width)
 
     with col2:
-        st.image("산불2.png", caption="소방출동", width=desired_image_width)
+        st.image("산불2.png", caption="소방출동", width=320)
+        st.markdown("""
+    그래프를 보면 소방대원이 현장에 빠르게 도착할수록 화재 피해 면적이 눈에 띄게 줄어드는 것을 확인할 수 있습니다. 초기 진압이 지연될수록 피해 면적은 급격히 커지는 경향을 보입니다. 이는 빠른 대응이 재난 피해 최소화에 결정적인 영향을 미친다는 사실을 잘 보여줍니다.
+    """)
 
-    st.markdown(
-        """
-        <div style="text-align: center;">
-            <p>그래프를 보면 소방대원이 현장에 빠르게 도착할수록 화재 피해 면적이 눈에 띄게 줄어드는 것을 확인할 수 있습니다.</p>
-            <p>초기 진압이 지연될수록 피해 면적은 급격히 커지는 경향을 보입니다.</p>
-            <p>이는 빠른 대응이 재난 피해 최소화에 결정적인 영향을 미친다는 사실을 잘 보여줍니다.</p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
 with tab3:
     
