@@ -78,17 +78,31 @@ st.markdown(
 )
 
 with tab2:
+    import streamlit as st
+    import pandas as pd
+
     st.markdown("<h2 style='text-align: center;'>소방서의 출동시간과 피해의 상관관계</h2>", unsafe_allow_html=True)
 
-    desired_image_width = 600
+    data = {
+        '기간': ['5분 평균', '10분 평균', '30분 평균', '60분 평균', '10시간 평균', '1일 평균', '3일 평균', '6일 평균', '9일 평균'],
+        '값': [100, 209, 2760, 12968, 39578, 60745, 152543, 305086.21, 706788.00],
+        '정렬값': [5, 10, 30, 60, 600, 1440, 4320, 8640, 12960]
+    }
 
-    col1, col2 = st.columns(2, gap="small")
+    df = pd.DataFrame(data)
+    order = ['5분 평균', '10분 평균', '30분 평균', '60분 평균', '10시간 평균', '1일 평균', '3일 평균', '6일 평균', '9일 평균']
+    df['기간'] = pd.Categorical(df['기간'], categories=order, ordered=True)
+    df = df.sort_values('기간').set_index('기간')
 
-    with col1:
-        st.image("산불.png", caption="소방출동", width=desired_image_width)
+    # 전체 그래프 (60분 이상 포함)
+    df_large = df.loc['60분 평균':]
+    st.title("📊 60분 이상 구간 그래프")
+    st.bar_chart(df_large[['값']])
 
-    with col2:
-        st.image("산불2.png", caption="소방출동", width=desired_image_width)
+    # 작은 값 구간 그래프 (5분 ~ 30분)
+    df_small = df.loc[['5분 평균', '10분 평균', '30분 평균']]
+    st.title("📊 5분~30분 구간 그래프")
+    st.bar_chart(df_small[['값']])
 
     st.markdown(
         """
@@ -100,6 +114,7 @@ with tab2:
         """,
         unsafe_allow_html=True
     )
+
 
 
 with tab3:
