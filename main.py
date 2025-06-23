@@ -43,7 +43,7 @@ df_merged = pd.merge(
 df_clean = df_merged.dropna(subset=['SIG_CD'])
 df_result = df_clean.groupby('SIG_CD', as_index=False)['발생건수'].sum()
 
-tab1, tab2, tab4 , tab5= st.tabs(["119안전센터 위치", "산불 패히지역 지도", "소방자원 분포표", "소방서 출동시간과 피해의 상관관계"])
+tab1, tab2, tab3, tab4 , tab5 = st.tabs(["119안전센터 위치", "산불 패히지역 지도","임시탭3", "소방자원 분포표", "소방서 출동시간과 피해의 상관관계"])
 
 with tab1:
     st.subheader("전국 119안전센터 및 대응 현황")
@@ -130,6 +130,9 @@ with tab2:
     ).add_to(m2)
 
     st_folium(m2, width=900, height=600)
+
+with tab3:
+    st.subheader("test1123234")
 
 with tab4:
     st.subheader("효율적인 소방자원 분포표")
